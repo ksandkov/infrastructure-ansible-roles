@@ -1,0 +1,21 @@
+---
+- name: Initial Server Setup & Docker Installation
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install basic utilities
+      apt:
+        name:
+          - curl
+          - git
+          - ufw
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
