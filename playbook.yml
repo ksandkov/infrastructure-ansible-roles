@@ -3,9 +3,10 @@
   hosts: all
   become: yes
   tasks:
-    - name: Update apt cache
+    - name: Update apt cache safely
       apt:
         update_cache: yes
+        cache_valid_time: 3600
 
     - name: Install basic utilities
       apt:
@@ -13,9 +14,27 @@
           - curl
           - git
           - ufw
+          - htop
         state: present
+
+    - name: Enable UFW firewall
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      loop:
+        - '22'
+        - '80'
+        - '443'
 
     - name: Install Docker
       apt:
         name: docker.io
         state: present
+      notify: Restart Docker
+
+  handlers:
+    - name: Restart Docker
+      systemd:
+        name: docker
+        state: restarted
