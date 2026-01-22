@@ -1,0 +1,22 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install core packages
+  apt:
+    name:
+      - curl
+      - git
+      - ufw
+      - htop
+      - sudo
+    state: present
+
+- name: Ensure deploy user exists
+  user:
+    name: deploy
+    shell: /bin/bash
+    groups: sudo
+    append: yes

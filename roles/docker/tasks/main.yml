@@ -1,0 +1,19 @@
+---
+- name: Install Docker engine
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+    state: present
+
+- name: Ensure Docker service is running
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add deploy user to docker group
+  user:
+    name: deploy
+    groups: docker
+    append: yes
