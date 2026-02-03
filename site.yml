@@ -1,7 +1,8 @@
 ---
 - name: Apply infrastructure roles
-  hosts: all
+  hosts: webservers
   become: yes
   roles:
     - common
     - docker
+    - nginx
