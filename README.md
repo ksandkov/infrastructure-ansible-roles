@@ -1,12 +1,12 @@
 # Ansible Infrastructure Roles
 
-Production-ready Ansible collection for configuring bare-metal Linux servers with Security hardening, Docker, and Nginx Reverse Proxy.
+Ansible roles that prepare an Ubuntu server to run an application behind Nginx: base packages, a deploy user, Docker, and an Nginx reverse proxy.
 
 ## Roles Overview
 
-* **`common`**: Security baseline, UFW firewall rules, essential tools, and system users.
-* **`docker`**: Docker Engine setup and group permissions.
-* **`nginx`**: Automated Reverse Proxy setup using Jinja2 dynamic templates.
+* **`common`**: Updates the apt cache, installs base tools (curl, git, ufw, htop, sudo) and creates the `deploy` user.
+* **`docker`**: Installs Docker from the Ubuntu packages, starts the service and adds `deploy` to the `docker` group.
+* **`nginx`**: Installs Nginx and renders a reverse proxy config from a Jinja2 template; Nginx is reloaded only when the config changes.
 
 ## Project Structure
 
